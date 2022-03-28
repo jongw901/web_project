@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="memberMapper">
+	<insert id="register">
+	<![CDATA[
+	    INSERT INTO F_MEMBER( USERID, USERPASS, USERNAME )
+	    VALUES( #{userId}, #{userPass}, #{userName})
+	]]>
+    </insert>
+    
+    <select id="login" resultType="com.home.vo.MemberVO">
+    <![CDATA[
+		SELECT USERID, USERPASS, username
+		FROM F_MEMBER
+		WHERE USERID = #{userId}
+		AND USERPASS = #{userPass}
+	]]>
+	</select>
+	
+	<update id="memberUpdate">
+	<![CDATA[
+		UPDATE F_MEMBER SET
+		USERPASS = #{userPass},
+		USERNAME = #{userName}
+		WHERE USERID = #{userId}
+	]]>
+	</update>
+	
+	<delete id="memberDelete">
+	<![CDATA[
+	DELETE FROM F_MEMBER
+	WHERE USERID = #{userId}
+	AND USERPASS = #{userPass}
+	]]> 
+	</delete>
+	
+	<select id="passChk" resultType="int">
+	<![CDATA[
+	SELECT COUNT(*) FROM F_MEMBER
+	WHERE USERID = #{userId}
+	AND USERPASS = #{userPass}
+	]]>
+	</select>
+	
+	<select id="idChk" resultType="int">
+	<![CDATA[
+	SELECT COUNT(*) FROM F_MEMBER
+	WHERE USERID = #{userId}
+	]]>
+</select>
+	
+</mapper>

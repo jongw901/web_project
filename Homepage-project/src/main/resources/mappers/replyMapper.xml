@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="replyMapper">
+	<select id="readReply" resultType="com.home.vo.ReplyVO">
+	<![CDATA[
+		SELECT RNO, CONTENT, WRITER, REGDATE, REPUSERID
+		FROM F_REPLY
+		WHERE BNO = #{bno}
+	]]>
+	</select>
+
+	<insert id="writeReply">
+	<![CDATA[
+	INSERT INTO F_REPLY(BNO, CONTENT, WRITER, REPUSERID)
+	VALUES(#{bno}, #{content}, #{writer}, #{repuserId})
+	]]>
+	</insert>
+
+	<update id="updateReply" parameterType="com.home.vo.ReplyVO">
+	<![CDATA[
+		UPDATE F_REPLY SET
+		CONTENT = #{content}
+		WHERE RNO = #{rno}
+	]]>
+	</update>
+
+	<delete id="deleteReply" parameterType="com.home.vo.ReplyVO">
+	<![CDATA[	
+		DELETE FROM F_REPLY
+		WHERE RNO = #{rno}
+	]]>
+	</delete>
+	
+	<select id="selectReply" resultType="com.home.vo.ReplyVO">
+	<![CDATA[	
+		SELECT BNO, RNO, CONTENT, WRITER, REGDATE
+		FROM F_REPLY
+		WHERE RNO = #{rno}
+	]]>
+	</select>
+
+</mapper>

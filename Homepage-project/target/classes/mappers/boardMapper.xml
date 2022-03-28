@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+	<insert id="insert">
+	<![CDATA[
+		INSERT INTO F_BOARD(TITLE, CONTENT, WRITER, USERID )
+		VALUES(#{title}, #{content}, #{writer}, #{userId} )
+	]]>
+	</insert>
+
+	<insert id="insert_notice">
+		<![CDATA[
+			INSERT INTO NOTICE_BOARD(TITLE, CONTENT, WRITER, USERID )
+			VALUES(#{title}, #{content}, #{writer}, #{userId} )
+		]]>
+	</insert>
+	
+	<select id="read" parameterType="int" resultType="com.home.vo.BoardVO">
+	<![CDATA[
+		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, USERID
+		FROM F_BOARD
+		WHERE BNO = #{bno}
+	]]>
+	</select>
+	<select id="read_notice" parameterType="int" resultType="com.home.vo.BoardVO">
+	<![CDATA[
+		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, USERID
+		FROM NOTICE_BOARD
+		WHERE BNO = #{bno}
+	]]>
+	</select>
+	
+	<update id="update" parameterType="com.home.vo.BoardVO">
+	<![CDATA[
+		UPDATE F_BOARD
+		SET TITLE = #{title}, CONTENT = #{content}
+		WHERE BNO = #{bno}
+	]]>
+	</update>
+	<update id="update_notice" parameterType="com.home.vo.BoardVO">
+	<![CDATA[
+		UPDATE NOTICE_BOARD
+		SET TITLE = #{title}, CONTENT = #{content}
+		WHERE BNO = #{bno}
+	]]>
+	</update>
+
+	<delete id="delete" parameterType="int">
+	<![CDATA[
+		DELETE
+		FROM F_BOARD
+		WHERE BNO = #{bno}
+	]]>
+	</delete>
+	<delete id="delete_notice" parameterType="int">
+	<![CDATA[
+		DELETE
+		FROM NOTICE_BOARD
+		WHERE BNO = #{bno}
+	]]>
+	</delete>
+
+	<select id="listPage" resultType="com.home.vo.BoardVO" parameterType="com.home.vo.SearchCriteria">
+		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, HIT
+		FROM (SELECT BNO, TITLE, CONTENT, WRITER, USERID, REGDATE, HIT, ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
+				FROM F_BOARD
+				WHERE 1=1
+				<include refid="search"></include>
+				) F
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY BNO DESC
+		<if test='home == "y"'>LIMIT 5</if>
+	</select>
+	
+	<select id="listPage_notice" resultType="com.home.vo.BoardVO" parameterType="com.home.vo.SearchCriteria">
+		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, HIT
+		FROM (SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, HIT, ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
+				FROM NOTICE_BOARD
+				WHERE 1=1
+				<include refid="search"></include>
+				) F
+		WHERE RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY BNO DESC
+		<if test='home == "y"'>LIMIT 5</if>
+	</select>
+
+	<select id="listCount" resultType="int" parameterType="com.home.vo.SearchCriteria">
+		SELECT COUNT(BNO)
+		FROM F_BOARD
+		WHERE 1=1
+		<include refid="search"></include>
+		<if test='memberwritelist == "y"'>AND USERID = #{userId}</if>
+		AND BNO > 0
+	</select>
+	<select id="replyCount" resultType="int" parameterType="com.home.vo.SearchCriteria">
+		SELECT COUNT(RNO)
+		FROM F_REPLY
+		WHERE 1=1
+		<include refid="search"></include>
+		AND REPUSERID = #{userId}
+		AND RNO > 0
+	</select>
+	
+	<select id="listCount_notice" resultType="int">
+		SELECT COUNT(BNO)
+		FROM NOTICE_BOARD
+		WHERE 1=1
+		<include refid="search"></include>
+		AND BNO > 0
+	</select>
+	
+	<update id="boardHit" parameterType="int">
+		UPDATE F_BOARD
+		SET HIT = HIT+1
+		WHERE BNO = #{bno}
+	</update>
+	<update id="boardHit_notice" parameterType="int">
+		UPDATE NOTICE_BOARD
+		SET HIT = HIT+1
+		WHERE BNO = #{bno}
+	</update>
+	
+	<select id="memberwritelistPage" resultType="com.home.vo.BoardVO" parameterType="com.home.vo.SearchCriteria">
+		SELECT BNO, TITLE, CONTENT, WRITER, REGDATE, HIT
+		FROM (SELECT BNO, TITLE, CONTENT, WRITER, USERID, REGDATE, HIT, ROW_NUMBER() OVER(ORDER BY BNO DESC) AS RNUM
+				FROM F_BOARD
+				WHERE 1=1
+				<include refid="search"></include>
+				) F
+		WHERE 1=1
+		AND USERID = #{userId}
+		AND RNUM BETWEEN #{rowStart} AND #{rowEnd}
+		ORDER BY BNO DESC
+	</select>
+	
+	<select id="memberreplylistPage" resultType="com.home.vo.ReplyVO" parameterType="com.home.vo.SearchCriteria">
+		SELECT BNO, RNO, CONTENT, WRITER, REGDATE, REPUSERID
+		FROM (SELECT BNO, RNO, CONTENT, WRITER, REGDATE, REPUSERID, ROW_NUMBER() OVER(ORDER BY RNO DESC) AS RNUM
+				FROM F_REPLY
+				WHERE 1=1
+				<include refid="search"></include>
+				) F
+		WHERE 1=1
+		AND REPUSERID = #{userId}
+		AND RNUM BETWEEN #{rowStart} AND #{rowEnd}		
+		ORDER BY RNO DESC
+	</select>
+
+	<sql id="search">
+		<if test="searchType != null">
+			<if test="searchType == 't'.toString()">AND TITLE LIKE CONCAT('%', #{keyword}, '%') </if>
+			<if test="searchType == 'c'.toString()">AND CONTENT LIKE CONCAT('%', #{keyword}, '%')</if>
+			<if test="searchType == 'w'.toString()">AND WRITER LIKE CONCAT('%', #{keyword}, '%')</if>
+			<if test="searchType == 'tc'.toString()">AND (TITLE LIKE CONCAT('%', #{keyword}, '%')) or (CONTENT LIKE CONCAT('%', #{keyword}, '%'))</if>
+		</if>
+	</sql>
+	
+</mapper>
