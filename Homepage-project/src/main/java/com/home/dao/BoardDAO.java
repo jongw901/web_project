@@ -3,7 +3,6 @@ package com.home.dao;
 import java.util.List;
 
 import com.home.vo.BoardVO;
-import com.home.vo.Criteria;
 import com.home.vo.SearchCriteria;
 
 public interface BoardDAO {

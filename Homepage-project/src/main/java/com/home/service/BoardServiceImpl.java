@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.home.dao.BoardDAO;
 import com.home.vo.BoardVO;
-import com.home.vo.Criteria;
 import com.home.vo.SearchCriteria;
 
 @Service
