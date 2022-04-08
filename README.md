@@ -29,4 +29,4 @@
 ###### notice_board: 공지사항 테이블
 ---
 ### 사용 설명
-https://jw91.tistory.com/2   https://jw91.tistory.com/3
+https://jw91.tistory.com/2  https://jw91.tistory.com/3
