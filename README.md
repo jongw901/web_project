@@ -19,7 +19,7 @@
 ---
 ### 데이터베이스 ERD
 ![image](https://user-images.githubusercontent.com/83652341/162395884-6ec7d9d9-c93b-4a43-a73a-7a9bcf5bd2bf.png)
-f_member: 회원 테이블
-f_board: 게시판 테이블
-f_reply: 댓글 테이블
+f_member: 회원 테이블  
+f_board: 게시판 테이블  
+f_reply: 댓글 테이블  
 notice_board: 공지사항 테이블
