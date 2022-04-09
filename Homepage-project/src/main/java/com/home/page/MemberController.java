@@ -30,16 +30,16 @@ public class MemberController {
 	@Inject
 	BoardService boardservice;
 
-	// 회원가입 get
+	// 회원가입 화면
 	@RequestMapping(value = "/member/register", method = RequestMethod.GET)
 	public void getRegister() throws Exception {
-		logger.info("get register");
+		logger.info("register");
 	}
 
 	// 회원가입 post
 	@RequestMapping(value = "/member/register", method = RequestMethod.POST)
 	public String postRegister(MemberVO vo) throws Exception {
-		logger.info("post register");
+		logger.info("registerpost");
 		int result = service.idChk(vo);
 		try {
 			if(result == 1) {
@@ -54,10 +54,10 @@ public class MemberController {
 		return "redirect:/";
 	}
 
-	// 로그인post
+	// 로그인 post
 	@RequestMapping(value = "/member/login", method = RequestMethod.POST)
 	public String login(MemberVO vo, HttpServletRequest req, RedirectAttributes rttr, @ModelAttribute("scri") SearchCriteria scri) throws Exception {
-		logger.info("post login");
+		logger.info("login post");
 
 		HttpSession session = req.getSession();
 		MemberVO login = service.login(vo);
@@ -76,7 +76,7 @@ public class MemberController {
 	// logout
 	@RequestMapping(value = "/member/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception {
-
+		logger.info("logout");
 		session.invalidate();
 
 		return "redirect:/";
@@ -85,14 +85,14 @@ public class MemberController {
 	// 정보변경 화면
 	@RequestMapping(value = "/member/memberUpdateView", method = RequestMethod.GET)
 	public String registerUpdateView() throws Exception {
-
+		logger.info("memberupdateview");
 		return "member/memberUpdateView";
 	}
 
 	// 정보변경 post
 	@RequestMapping(value = "/member/memberUpdate", method = RequestMethod.POST)
 	public String registerUpdate(MemberVO vo, HttpSession session) throws Exception {
-
+		logger.info("memberupdatepost");
 		service.memberUpdate(vo);
 
 		session.invalidate();
@@ -103,13 +103,15 @@ public class MemberController {
 	// 회원 탈퇴 화면
 	@RequestMapping(value = "/member/memberDeleteView", method = RequestMethod.GET)
 	public String memberDeleteView() throws Exception {
+		logger.info("memberdeleteview");
+		
 		return "member/memberDeleteView";
 	}
 
 	// 회원 탈퇴 post
 	@RequestMapping(value = "/member/memberDelete", method = RequestMethod.POST)
 	public String memberDelete(MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception {
-
+		logger.info("memberdeletepost");
 		MemberVO member = (MemberVO) session.getAttribute("member");
 		String sessionPass = member.getUserPass();
 		String voPass = vo.getUserPass();
@@ -137,7 +139,8 @@ public class MemberController {
 		int result = service.idChk(vo);
 		return result;
 	}
-
+	
+	//회원 쓴 글 확인
 	@RequestMapping(value = "/board/memberwritelistPage", method = RequestMethod.GET)
 	public String memberwritelistPage(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception {
 		logger.info("memberwritelistPage");
@@ -153,7 +156,8 @@ public class MemberController {
 
 		return "board/memberwritelistPage";
 	}
-
+	
+	//회원 쓴 댓글 확인
 	@RequestMapping(value = "/board/memberreplylistPage", method = RequestMethod.GET)
 	public String memberreplylistPage(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception {
 		logger.info("memberreplylistPage");

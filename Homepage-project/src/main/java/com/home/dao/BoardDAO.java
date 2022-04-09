@@ -15,12 +15,15 @@ public interface BoardDAO {
 	public List<BoardVO> list(SearchCriteria scri) throws Exception;
 	// 공지 list
 	public List<BoardVO> list_notice(SearchCriteria scri) throws Exception;
+	
 	// 글 개수
 	public int listCount(SearchCriteria scri) throws Exception;
 	// 공지 글 개수
 	public int listCount_notice(SearchCriteria scri) throws Exception;
+	
 	// 댓글 개수
 	public int replyCount(SearchCriteria scri) throws Exception;
+	
 	// 게시물 조회
 	public BoardVO read(int bno) throws Exception;
 	// 공지 조회

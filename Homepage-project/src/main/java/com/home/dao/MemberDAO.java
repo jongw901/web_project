@@ -14,13 +14,13 @@ public interface MemberDAO {
 	//로그인
 	public MemberVO login(MemberVO vo) throws Exception;
 	
-	//정보 변경
+	//회원 정보 변경
 	public void memberUpdate(MemberVO vo) throws Exception;
 	
-	//탈퇴
+	//회원 탈퇴
 	public void memberDelete(MemberVO vo) throws Exception;
 	
-	//패스워드 체크
+	//회원 탈퇴 패스워드 체크
 	public int passChk(MemberVO vo) throws Exception;
 	
 	// 아이디 중복체크

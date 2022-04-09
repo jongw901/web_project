@@ -41,7 +41,7 @@ public class BoardController {
 	// 글 write post
 	@RequestMapping(value = "/board/write", method = RequestMethod.POST)
 	public String write(BoardVO boardVO) throws Exception {
-		logger.info("회원 작성");
+		logger.info("boardwrite");
 		service.write(boardVO);
 		return "redirect:/board/list";
 	}
@@ -49,7 +49,7 @@ public class BoardController {
 	// 공지사항 write post
 	@RequestMapping(value = "/board/write_notice", method = RequestMethod.POST)
 	public String write_notice(BoardVO boardVO) throws Exception {
-		logger.info("공지사항 작성");
+		logger.info("boardwrite_notice");
 		service.write_notice(boardVO);
 		return "redirect:/board/list_notice";
 	}
@@ -57,6 +57,7 @@ public class BoardController {
 	// 글 list 화면
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String list(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception {
+		logger.info("list");
 		scri.setUserId("");
 		
 		model.addAttribute("list", service.list(scri));
@@ -73,7 +74,7 @@ public class BoardController {
 	// 공지 list 화면
 	@RequestMapping(value = "/list_notice", method = RequestMethod.GET)
 	public String list_notice(Model model, @ModelAttribute("scri") SearchCriteria scri) throws Exception {
-		logger.info("list");
+		logger.info("list_notice");
 
 		model.addAttribute("list", service.list_notice(scri));
 
@@ -89,7 +90,7 @@ public class BoardController {
 	// 글 확인 화면
 	@RequestMapping(value = "/readView", method = RequestMethod.GET)
 	public String read(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, Model model) throws Exception {
-		logger.info("read");
+		logger.info("readView");
 
 		model.addAttribute("read", service.read(boardVO.getBno()));
 		model.addAttribute("scri", scri);
@@ -104,7 +105,7 @@ public class BoardController {
 	@RequestMapping(value = "/readView_notice", method = RequestMethod.GET)
 	public String read_notice(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, Model model)
 			throws Exception {
-		logger.info("read");
+		logger.info("readView_notice");
 
 		model.addAttribute("read", service.read_notice(boardVO.getBno()));
 		model.addAttribute("scri", scri);
@@ -128,7 +129,7 @@ public class BoardController {
 	@RequestMapping(value = "/updateView_notice", method = RequestMethod.GET)
 	public String updateView_notice(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, Model model)
 			throws Exception {
-		logger.info("updateView");
+		logger.info("updateView_notice");
 
 		model.addAttribute("update", service.read_notice(boardVO.getBno()));
 		model.addAttribute("scri", scri);
@@ -140,7 +141,7 @@ public class BoardController {
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public String update(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr)
 			throws Exception {
-		logger.info("update");
+		logger.info("updatepost");
 
 		service.update(boardVO);
 		
@@ -160,7 +161,7 @@ public class BoardController {
 	@RequestMapping(value = "/update_notice", method = RequestMethod.POST)
 	public String update_notice(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr)
 			throws Exception {
-		logger.info("update");
+		logger.info("updatepost_notice");
 
 		service.update_notice(boardVO);
 
@@ -176,7 +177,7 @@ public class BoardController {
 	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	public String delete(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr)
 			throws Exception {
-		logger.info("delete");
+		logger.info("deletepost");
 
 		service.delete(boardVO.getBno());
 
@@ -196,7 +197,7 @@ public class BoardController {
 	@RequestMapping(value = "/delete_notice", method = RequestMethod.POST)
 	public String delete_notice(BoardVO boardVO, @ModelAttribute("scri") SearchCriteria scri, RedirectAttributes rttr)
 			throws Exception {
-		logger.info("delete");
+		logger.info("deletepost_notice");
 
 		service.delete_notice(boardVO.getBno());
 
@@ -211,9 +212,8 @@ public class BoardController {
 	// 댓글 write post
 	@RequestMapping(value = "/replyWrite", method = RequestMethod.POST)
 	public String replyWrite(ReplyVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
-		logger.info("reply Write");
+		logger.info("replypost");
 		
-		//scri.setUserId("");
 		
 		replyservice.writeReply(vo);
 		
@@ -227,10 +227,10 @@ public class BoardController {
 		return "redirect:/board/readView";
 	}
 
-	// 댓글 수정 GET
+	// 댓글 수정 화면
 	@RequestMapping(value = "/replyUpdateView", method = RequestMethod.GET)
 	public String replyUpdateView(ReplyVO vo, SearchCriteria scri, Model model) throws Exception {
-		logger.info("reply Write");
+		logger.info("replyupdateview");
 
 		model.addAttribute("replyUpdate", replyservice.selectReply(vo.getRno()));
 		model.addAttribute("scri", scri);
@@ -241,7 +241,7 @@ public class BoardController {
 	// 댓글 수정 POST
 	@RequestMapping(value = "/replyUpdate", method = RequestMethod.POST)
 	public String replyUpdate(ReplyVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
-		logger.info("reply Write");
+		logger.info("replyupdatepost");
 
 		replyservice.updateReply(vo);
 
@@ -259,7 +259,7 @@ public class BoardController {
 	// 댓글 삭제 post
 	@RequestMapping(value = "/replyDelete", method = RequestMethod.POST)
 	public String replyDelete(ReplyVO vo, SearchCriteria scri, RedirectAttributes rttr) throws Exception {
-		logger.info("reply Write");
+		logger.info("replydeletepost");
 		logger.info(Integer.toString(vo.getBno()));
 
 		
