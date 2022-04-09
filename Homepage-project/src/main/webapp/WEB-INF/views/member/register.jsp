@@ -36,7 +36,7 @@ div.fo{ margin: 0 auto; width: 500px; padding:20px }
 				if($("#userName").val()==""){
 					alert("이름을 입력해주세요.");
 					$("#userName").focus();
-					return false;
+					return false; 
 				}
 				var idChkVal = $("#idChk").val();
 				if(idChkVal == "N"){
