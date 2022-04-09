@@ -53,7 +53,7 @@ div.fo{ margin: 0 auto; width: 500px; padding:20px }
 		<%@include file="/WEB-INF/views/board/nav.jsp"%>
 	</div>
 	<header style="margin-left: 20px">
-		<h3>회원탈퇴</h3> 
+		<h3>회원탈퇴</h3>
 	</header>
 	<hr />
 	<section id="container">
