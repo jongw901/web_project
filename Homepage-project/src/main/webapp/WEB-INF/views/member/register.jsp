@@ -34,7 +34,7 @@ div.fo{ margin: 0 auto; width: 500px; padding:20px }
 					return false;
 				}
 				if($("#userName").val()==""){
-					alert("성명을 입력해주세요.");
+					alert("이름을 입력해주세요.");
 					$("#userName").focus();
 					return false;
 				}
@@ -86,7 +86,7 @@ div.fo{ margin: 0 auto; width: 500px; padding:20px }
 					<input class="form-control" type="password" id="userPass" name="userPass" maxlength='50'/>
 				</div>
 				<div class="fo">
-					<label class="control-label" for="userName">성명</label>
+					<label class="control-label" for="userName">이름</label>
 					<input class="form-control" type="text" id="userName" name="userName" maxlength='10' />
 				</div>
 				<div style="margin: 0 auto; width: 150px">

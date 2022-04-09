@@ -68,7 +68,7 @@ div.fo{ margin: 0 auto; width: 500px; padding:20px }
 					class="form-control" type="password" id="userPass" name="userPass" />
 			</div>
 			<div class="fo">
-				<label class="control-label" for="userName">성명</label> <input
+				<label class="control-label" for="userName">이름</label> <input
 					class="form-control" type="text" id="userName" name="userName"
 					value="${member.userName}" readonly="readonly" />
 			</div>
