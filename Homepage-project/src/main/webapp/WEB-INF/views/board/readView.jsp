@@ -20,7 +20,7 @@ table.type { border-collapse: separate;	border-spacing: 1px; text-align: left; l
 </head>
 <script type="text/javascript">
 		$(document).ready(function() {
-		var formObj = $("form[name='readForm']");
+		const formObj = $("form[name='readForm']");
 		// 수정 
 		$(".update_btn").on("click", function() {
 			formObj.attr("action", "/board/updateView");
