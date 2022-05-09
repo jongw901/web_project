@@ -20,8 +20,8 @@ table.type { border-collapse: separate;	border-spacing: 1px; text-align: left; l
 </head>
 <script type="text/javascript">
 		$(document).ready(function() {
-		var formObj = $("form[name='readForm']");
-		var formRep = $("form[name='replyForm']");
+		const formObj = $("form[name='readForm']");
+		const formRep = $("form[name='replyForm']");
 		// 수정 
 		$(".update_btn").on("click", function() {
 			formObj.attr("action", "/board/updateView_notice");
@@ -31,7 +31,7 @@ table.type { border-collapse: separate;	border-spacing: 1px; text-align: left; l
 
 		// 삭제
 		$(".delete_btn").on("click", function() {
-			var deleteconfirm = confirm("글을 삭제하시겠습니까?");
+			let deleteconfirm = confirm("글을 삭제하시겠습니까?");
 			if (deleteconfirm == true) {
 				formObj.attr("action", "/board/delete_notice");
 				formObj.attr("method", "post");

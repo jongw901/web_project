@@ -17,7 +17,7 @@ button{ width: 60px; padding: 8px 5px; border: 0px solid #999; border-radius: 0p
 </head>
 	<script type="text/javascript">
 		$(document).ready(function(){
-			var formObj = $("form[name='writeForm']");
+			const formObj = $("form[name='writeForm']");
 			$(".write_btn").on("click", function(){
 				if(fn_valiChk()){
 					return false;
@@ -36,8 +36,8 @@ button{ width: 60px; padding: 8px 5px; border: 0px solid #999; border-radius: 0p
 			});
 		})
 		function fn_valiChk(){
-			var regForm = $("form[name='writeForm'] .chk").length;
-			for(var i = 0; i<regForm; i++){
+			const regForm = $("form[name='writeForm'] .chk").length;
+			for(let i = 0; i<regForm; i++){
 				if($(".chk").eq(i).val() == "" || $(".chk").eq(i).val() == null){
 					alert($(".chk").eq(i).attr("title"));
 					return true;

@@ -30,7 +30,7 @@ table.type { border-collapse: separate;	border-spacing: 1px; text-align: left; l
 
 		// 삭제
 		$(".delete_btn").on("click", function() {
-			var deleteconfirm = confirm("글을 삭제하시겠습니까?");
+			let deleteconfirm = confirm("글을 삭제하시겠습니까?");
 			if (deleteconfirm == true) {
 				formObj.attr("action", "/board/delete");
 				formObj.attr("method", "post");

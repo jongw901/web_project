@@ -13,7 +13,7 @@
 </head>
 <script type="text/javascript">
 		$(document).ready(function(){
-			var formObj = $("form[name='updateForm']");
+			const formObj = $("form[name='updateForm']");
 			
 			$(".cancel_btn").on("click", function(){
 				location.href = "/board/readView?userId=${scri.userId}"
